@@ -1,6 +1,6 @@
 class Application
 
-  @@items = ["Apples","Carrots","Pears"]
+  # @@items = ["Apples","Carrots","Pears"]
   # @@cart = []
 
   def call(env)
@@ -8,10 +8,14 @@ class Application
     req = Rack::Request.new(env)
 
 
-  if req.path.match(/items/)
-    @@items.each do |item|
-      resp.write "#{item}\n"
-    end  
+    if req.path.match(/items/)
+        item = req.path.split("/items/").last
+        if item =@@items.find{|i| i.name == item}
+          resp.write item.price
+        else
+          resp.status = 400
+          resp.write "Item not found"
+        end
 
   # if req.path.match(/search/)
   #   search_term = req.params["q"]
