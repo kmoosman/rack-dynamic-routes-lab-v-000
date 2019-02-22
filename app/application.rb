@@ -1,8 +1,5 @@
 class Application
 
-  # @@items = ["Apples","Carrots","Pears"]
-  # @@cart = []
-
   def call(env)
     resp = Rack::Response.new
     req = Rack::Request.new(env)
@@ -16,11 +13,7 @@ class Application
           resp.status = 400
           resp.write "Item not found"
         end
-
-  # if req.path.match(/search/)
-  #   search_term = req.params["q"]
-  #   resp.write handle_search(search_term)
-  else
+   else
       resp.status = 404
       resp.write "Route not found"
   end
